@@ -7,9 +7,11 @@ class Queue(object):
         self.inStack.append(cargo)
     
     def Move(self):
-        while len(self.inStack) != 0:
-            self.outStack.append(self.inStack.pop())
-    
+        #only move if outstack is empty
+        if not self.outStack:
+            while len(self.inStack) != 0:
+                self.outStack.append(self.inStack.pop())
+        
     def pop(self):
         self.Move()
         if len(self.outStack) == 0:
