@@ -59,6 +59,7 @@ def createNewGraph():
     for i in range(sizeGraph):
         g.addNode(temp[i])
     return g
+
 def createNewGraphWithLoop():
     g = Graph()
     sizegraph = 6
@@ -82,10 +83,34 @@ def createNewGraphWithLoop():
         g.addNode(temp[i])
     return g
 
+def graphBFS(g, start, end):
+    if start == end:
+        return True
+    q = Queue.Queue(len(g.getNodes()))
+    start.visited = True
+    q.put(start)
+    while not q.empty():
+        r = q.get()
+        if r != None:
+            adjacent = r.getAdjacent()
+            for i in range(len(adjacent)):
+                try:
+                    if adjacent[i].visited == False:
+                        if adjacent[i] == end:
+                            return True
+                        else:
+                            q.put(adjacent[i])
+                        adjacent[i].visited = True
+                except:
+                    raise Exception('The nodes are not connected')
+    return False
 
-g = createNewGraph()
+
+
+g = createNewGraphWithLoop()
 n = g.getNodes()
 start = n[0]
 end = n[5]
 print "Start at:", start.getVertex(), "End at: ", end.getVertex()
+print graphBFS(g,start,end)
 
